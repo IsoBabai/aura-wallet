@@ -382,7 +382,7 @@ footer{background:var(--gray-900);padding:56px 48px 40px;color:var(--white)}
     <a href="#security">Security</a>
     <a href="#portfolio">Portfolio</a>
   </div>
-  <button class="nav-cta">Start Using Aura</button>
+  <button class="nav-cta" id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
 </nav>
 
 <!-- ── HERO ── -->
@@ -395,7 +395,7 @@ footer{background:var(--gray-900);padding:56px 48px 40px;color:var(--white)}
     <h1>Crypto finally<br>feels human.</h1>
     <p class="hero-sub">Aura Wallet is an AI-powered smart wallet that lets you bridge, swap, stake, and manage assets using simple language instead of complicated DeFi interfaces.</p>
     <div class="hero-actions">
-      <button class="btn-primary">Start Using Aura</button>
+      <button class="btn-primary" onclick="connectWallet()">Start Using Aura</button>
       <button class="btn-secondary">▷ Watch Demo</button>
     </div>
 
@@ -772,7 +772,7 @@ footer{background:var(--gray-900);padding:56px 48px 40px;color:var(--white)}
     <h2 class="cta-h2">The AI operating system for crypto.</h2>
     <p class="cta-sub">Crypto is too complicated. Aura makes it effortless.</p>
     <div class="cta-actions">
-      <button class="btn-primary">Launch App</button>
+      <button class="btn-primary" onclick="connectWallet()">Launch App</button>
       <button class="btn-secondary">Join Waitlist</button>
     </div>
   </div>
@@ -798,6 +798,72 @@ footer{background:var(--gray-900);padding:56px 48px 40px;color:var(--white)}
     </div>
   </div>
 </footer>
+
+<!-- ── WALLET MODAL ── -->
+<div id="walletModal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.4);backdrop-filter:blur(6px);align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:28px;padding:36px;max-width:420px;width:90%;box-shadow:0 32px 80px rgba(0,0,0,.15);position:relative;animation:modalIn .25s ease">
+    <button onclick="closeModal()" style="position:absolute;top:18px;right:18px;background:var(--gray-100);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;color:var(--gray-600)">✕</button>
+    <div style="font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--gray-900);margin-bottom:6px">Connect your wallet</div>
+    <p style="font-size:13px;color:var(--gray-400);margin-bottom:28px">Connecting to <strong style="color:var(--purple-600)">Sepolia Testnet</strong></p>
+    <div id="walletOptions">
+      <button class="wallet-opt" onclick="connectMetaMask()">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" width="36" height="36" alt="MetaMask">
+        <div><div style="font-weight:600;font-size:15px;color:var(--gray-900)">MetaMask</div><div style="font-size:12px;color:var(--gray-400)">Browser extension</div></div>
+        <span style="margin-left:auto;color:var(--gray-300);font-size:18px">›</span>
+      </button>
+      <button class="wallet-opt" onclick="connectCoinbase()">
+        <img src="https://avatars.githubusercontent.com/u/18060234" width="36" height="36" alt="Coinbase" style="border-radius:8px">
+        <div><div style="font-weight:600;font-size:15px;color:var(--gray-900)">Coinbase Wallet</div><div style="font-size:12px;color:var(--gray-400)">Browser extension</div></div>
+        <span style="margin-left:auto;color:var(--gray-300);font-size:18px">›</span>
+      </button>
+      <button class="wallet-opt" onclick="connectInjected()">
+        <div style="width:36px;height:36px;background:var(--purple-50);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px">🔑</div>
+        <div><div style="font-weight:600;font-size:15px;color:var(--gray-900)">Other Wallet</div><div style="font-size:12px;color:var(--gray-400)">Any injected provider</div></div>
+        <span style="margin-left:auto;color:var(--gray-300);font-size:18px">›</span>
+      </button>
+    </div>
+    <div id="walletStatus" style="display:none;text-align:center;padding:16px 0">
+      <div id="walletStatusIcon" style="font-size:40px;margin-bottom:10px"></div>
+      <div id="walletStatusText" style="font-size:14px;color:var(--gray-700)"></div>
+    </div>
+    <p style="font-size:11px;color:var(--gray-400);text-align:center;margin-top:20px">Non-custodial · Your keys stay with you</p>
+  </div>
+</div>
+
+<!-- ── CONNECTED PANEL (top-right) ── -->
+<div id="walletPanel" style="display:none;position:fixed;top:72px;right:24px;z-index:200;background:#fff;border:.5px solid var(--gray-100);border-radius:20px;padding:20px;min-width:280px;box-shadow:0 16px 48px rgba(0,0,0,.1);animation:modalIn .2s ease">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+    <div style="width:10px;height:10px;background:#16a34a;border-radius:50%"></div>
+    <span style="font-size:13px;font-weight:600;color:var(--gray-900)">Connected · Sepolia</span>
+    <button onclick="disconnectWallet()" style="margin-left:auto;background:var(--gray-100);border:none;padding:4px 10px;border-radius:100px;font-size:11px;color:var(--gray-600);cursor:pointer">Disconnect</button>
+  </div>
+  <div style="background:var(--gray-50);border-radius:12px;padding:12px 14px;margin-bottom:12px">
+    <div style="font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--gray-400);margin-bottom:4px">Address</div>
+    <div id="panelAddress" style="font-size:13px;font-weight:500;color:var(--gray-900);font-family:monospace"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div style="background:var(--purple-50);border-radius:12px;padding:12px">
+      <div style="font-size:10px;color:var(--purple-400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">ETH Balance</div>
+      <div id="panelBalance" style="font-size:16px;font-weight:700;color:var(--purple-600)">—</div>
+    </div>
+    <div style="background:var(--blue-50);border-radius:12px;padding:12px">
+      <div style="font-size:10px;color:var(--blue-400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Network</div>
+      <div style="font-size:14px;font-weight:600;color:var(--blue-600)">Sepolia</div>
+    </div>
+  </div>
+  <a href="https://sepoliafaucet.com" target="_blank" style="display:block;margin-top:12px;text-align:center;font-size:12px;color:var(--purple-600);text-decoration:none;padding:8px;background:var(--purple-50);border-radius:10px">🚰 Get free Sepolia ETH from faucet</a>
+</div>
+
+<style>
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.wallet-opt{
+  width:100%;display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-radius:16px;border:.5px solid var(--gray-100);
+  background:#fff;cursor:pointer;margin-bottom:10px;transition:all .18s;text-align:left;
+}
+.wallet-opt:hover{border-color:var(--purple-200);background:var(--purple-50);transform:translateY(-1px)}
+#walletModal.open{display:flex}
+</style>
 
 <script>
 /* ── Tab switcher ── */
@@ -841,7 +907,160 @@ function spawnParticle() {
 }
 setInterval(spawnParticle, 700);
 
-/* ── Sticky nav shadow on scroll ── */
+/* ── WALLET CONNECTION ── */
+const SEPOLIA_CHAIN_ID = '0xaa36a7'; // 11155111
+let connectedAddress = null;
+
+function connectWallet() {
+  document.getElementById('walletModal').classList.add('open');
+  document.getElementById('walletOptions').style.display = 'block';
+  document.getElementById('walletStatus').style.display = 'none';
+}
+
+function closeModal() {
+  document.getElementById('walletModal').classList.remove('open');
+}
+
+document.getElementById('walletModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('walletModal')) closeModal();
+});
+
+function showStatus(icon, text) {
+  document.getElementById('walletOptions').style.display = 'none';
+  document.getElementById('walletStatus').style.display = 'block';
+  document.getElementById('walletStatusIcon').textContent = icon;
+  document.getElementById('walletStatusText').textContent = text;
+}
+
+async function ensureSepolia(provider) {
+  const chainId = await provider.request({ method: 'eth_chainId' });
+  if (chainId !== SEPOLIA_CHAIN_ID) {
+    showStatus('🔄', 'Switching to Sepolia testnet…');
+    try {
+      await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: SEPOLIA_CHAIN_ID }]
+      });
+    } catch (err) {
+      if (err.code === 4902) {
+        await provider.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: SEPOLIA_CHAIN_ID,
+            chainName: 'Sepolia Testnet',
+            nativeCurrency: { name: 'SepoliaETH', symbol: 'ETH', decimals: 18 },
+            rpcUrls: ['https://rpc.sepolia.org'],
+            blockExplorerUrls: ['https://sepolia.etherscan.io']
+          }]
+        });
+      } else throw err;
+    }
+  }
+}
+
+async function finishConnect(accounts, provider) {
+  if (!accounts || accounts.length === 0) {
+    showStatus('❌', 'No accounts found. Please unlock your wallet.');
+    return;
+  }
+  connectedAddress = accounts[0];
+  await ensureSepolia(provider);
+
+  // Fetch balance
+  const balHex = await provider.request({
+    method: 'eth_getBalance',
+    params: [connectedAddress, 'latest']
+  });
+  const balEth = (parseInt(balHex, 16) / 1e18).toFixed(4);
+
+  // Update UI
+  const short = connectedAddress.slice(0, 6) + '…' + connectedAddress.slice(-4);
+  const btn = document.getElementById('connectBtn');
+  btn.textContent = short;
+  btn.style.background = 'var(--purple-600)';
+
+  document.getElementById('panelAddress').textContent = connectedAddress;
+  document.getElementById('panelBalance').textContent = balEth + ' ETH';
+
+  closeModal();
+  document.getElementById('walletPanel').style.display = 'block';
+
+  // Listen for account/chain changes
+  provider.on('accountsChanged', accs => {
+    if (!accs.length) disconnectWallet();
+    else finishConnect(accs, provider);
+  });
+  provider.on('chainChanged', () => location.reload());
+}
+
+async function connectMetaMask() {
+  if (!window.ethereum) {
+    showStatus('🦊', 'MetaMask not found. Please install the extension from metamask.io');
+    return;
+  }
+  showStatus('⏳', 'Opening MetaMask…');
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    await finishConnect(accounts, window.ethereum);
+  } catch (err) {
+    showStatus('❌', err.code === 4001 ? 'Connection rejected by user.' : 'Error: ' + err.message);
+  }
+}
+
+async function connectCoinbase() {
+  // Coinbase Wallet also injects window.ethereum when active
+  if (!window.ethereum) {
+    showStatus('💙', 'Coinbase Wallet not detected. Please install it or use MetaMask.');
+    return;
+  }
+  showStatus('⏳', 'Connecting Coinbase Wallet…');
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    await finishConnect(accounts, window.ethereum);
+  } catch (err) {
+    showStatus('❌', err.code === 4001 ? 'Connection rejected by user.' : 'Error: ' + err.message);
+  }
+}
+
+async function connectInjected() {
+  if (!window.ethereum) {
+    showStatus('❌', 'No wallet detected in your browser. Please install MetaMask or another Web3 wallet.');
+    return;
+  }
+  showStatus('⏳', 'Requesting access…');
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    await finishConnect(accounts, window.ethereum);
+  } catch (err) {
+    showStatus('❌', err.code === 4001 ? 'Connection rejected.' : 'Error: ' + err.message);
+  }
+}
+
+function disconnectWallet() {
+  connectedAddress = null;
+  const btn = document.getElementById('connectBtn');
+  btn.textContent = 'Connect Wallet';
+  btn.style.background = 'var(--gray-900)';
+  document.getElementById('walletPanel').style.display = 'none';
+}
+
+// Close panel when clicking outside
+document.addEventListener('click', e => {
+  const panel = document.getElementById('walletPanel');
+  const btn = document.getElementById('connectBtn');
+  if (panel.style.display === 'block' && !panel.contains(e.target) && e.target !== btn) {
+    panel.style.display = 'none';
+  }
+});
+
+// Re-open panel when clicking the address button while connected
+document.getElementById('connectBtn').addEventListener('click', () => {
+  if (connectedAddress) {
+    const panel = document.getElementById('walletPanel');
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  }
+});
+
 const nav = document.querySelector('nav');
 window.addEventListener('scroll', () => {
   nav.style.boxShadow = window.scrollY > 20 ? '0 1px 24px rgba(0,0,0,.06)' : 'none';
