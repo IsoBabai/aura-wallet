@@ -66,7 +66,7 @@ nav{position:fixed;top:36px;left:0;right:0;z-index:300;height:60px;
 .hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 96px)}
 
 /* LEFT */
-.hero-left{padding:60px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;border-right:1px solid var(--border)}
+.hero-left{padding:56px 52px 48px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;border-right:1px solid var(--border);background:linear-gradient(160deg,rgba(255,255,255,.98),rgba(240,249,255,.95))}
 .hero-left::before{content:'';position:absolute;top:-60px;left:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(14,165,233,.07),transparent 65%);pointer-events:none}
 .hero-left::after{content:'';position:absolute;bottom:-40px;right:-40px;width:300px;height:300px;background:radial-gradient(circle,rgba(56,189,248,.05),transparent 65%);pointer-events:none}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-family:var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--sky);margin-bottom:24px;background:rgba(14,165,233,.07);padding:6px 14px;border-radius:100px;border:1px solid var(--border2);width:fit-content}
@@ -80,7 +80,9 @@ nav{position:fixed;top:36px;left:0;right:0;z-index:300;height:60px;
 .btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--steel);padding:12px 22px;border-radius:9px;font-size:12px;font-family:var(--font);font-weight:600;letter-spacing:.6px;text-transform:uppercase;cursor:pointer;transition:all .2s}
 .btn-ghost:hover{border-color:var(--sky);color:var(--sky);transform:translateY(-1px)}
 .hero-arc-info{margin-top:40px;padding-top:28px;border-top:1px solid var(--border);display:flex;gap:24px;flex-wrap:wrap}
-.hai-item{display:flex;flex-direction:column;gap:3px}
+.hai-item{display:flex;flex-direction:column;gap:3px;transition:transform .2s}
+.hai-item:hover{transform:translateY(-2px)}
+.hai-item:hover .hai-val{color:var(--sky2)}
 .hai-val{font-size:13px;font-weight:700;color:var(--sky);font-family:var(--font-mono)}
 .hai-lbl{font-size:10px;color:var(--mist);letter-spacing:.5px;text-transform:uppercase}
 
@@ -100,20 +102,27 @@ nav{position:fixed;top:36px;left:0;right:0;z-index:300;height:60px;
 @keyframes orbSpin{to{transform:rotate(360deg)}}
 .wc-title{font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--ink);margin-bottom:6px}
 .wc-sub{font-size:13px;color:var(--steel);line-height:1.6;margin-bottom:24px;max-width:260px}
-.btn-connect-main{width:100%;max-width:240px;padding:13px;background:linear-gradient(135deg,var(--sky),var(--ink2));color:white;border:none;border-radius:9px;font-size:12px;font-family:var(--font);font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(14,165,233,.3)}
+.btn-connect-main{width:100%;max-width:240px;padding:13px;background:linear-gradient(135deg,var(--sky),var(--ink2));color:white;border:none;border-radius:9px;font-size:12px;font-family:var(--font);font-weight:700;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(14,165,233,.3);animation:connectGlow 3s ease-in-out infinite}
+@keyframes connectGlow{0%,100%{box-shadow:0 4px 16px rgba(14,165,233,.3)}50%{box-shadow:0 4px 28px rgba(14,165,233,.6),0 0 0 4px rgba(14,165,233,.08)}}
 .btn-connect-main:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(14,165,233,.4)}
 .wc-note{font-size:10px;color:var(--mist);margin-top:12px;font-family:var(--font-mono)}
 
 /* Connected */
 .conn-state{display:none;flex:1;flex-direction:column}
-.w-topbar{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--fog)}
+.w-topbar{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,var(--fog),rgba(224,242,254,.8));position:relative;overflow:hidden}
+.w-topbar::after{content:"";position:absolute;left:-100%;top:0;bottom:0;width:50%;background:linear-gradient(90deg,transparent,rgba(14,165,233,.05),transparent);animation:topBarSheen 5s ease-in-out infinite}
+@keyframes topBarSheen{0%{left:-50%}100%{left:150%}}
 .w-net{display:flex;align-items:center;gap:6px;font-size:11px;font-family:var(--font-mono);color:var(--sky)}
 .w-net-dot{width:6px;height:6px;background:var(--sky2);border-radius:50%;animation:pulse 2s infinite}
 .w-addr{font-size:11px;font-family:var(--font-mono);color:var(--steel);background:white;padding:4px 10px;border-radius:5px;border:1px solid var(--border)}
 .w-bal-area{padding:28px 24px 20px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.w-bal-area::before{content:'';position:absolute;top:-100%;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(14,165,233,.4),transparent);
+  animation:scanLine 4s ease-in-out infinite}
+@keyframes scanLine{0%{top:-2px;opacity:0}10%{opacity:1}90%{opacity:.3}100%{top:110%;opacity:0}}
 .w-bal-area::after{content:'';position:absolute;right:-20px;top:-20px;width:140px;height:140px;background:radial-gradient(circle,rgba(14,165,233,.06),transparent 70%);pointer-events:none}
 .wbl-label{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--mist);font-family:var(--font-mono);margin-bottom:6px}
-.wbl-usdc{font-family:var(--font-serif);font-size:46px;font-weight:300;letter-spacing:-1px;color:var(--ink)}
+.wbl-usdc{font-family:var(--font-serif);font-size:46px;font-weight:300;letter-spacing:-1px;color:var(--ink);transition:all .4s ease}
 .wbl-sub{font-size:12px;color:var(--steel);margin-top:3px;font-family:var(--font-mono)}
 .wbl-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--sky);background:rgba(14,165,233,.07);padding:3px 9px;border-radius:100px;margin-top:8px;font-family:var(--font-mono);border:1px solid var(--border2)}
 /* Quick actions */
@@ -122,7 +131,14 @@ nav{position:fixed;top:36px;left:0;right:0;z-index:300;height:60px;
 .wa:last-child{border-right:none}
 .wa:hover{background:var(--fog)}
 .wa-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
-.wa-icon.sky{background:rgba(14,165,233,.1)}
+.wa-icon.sky{background:rgba(14,165,233,.1);transition:all .2s}
+.wa:hover .wa-icon.sky{background:rgba(14,165,233,.2);box-shadow:0 0 12px rgba(14,165,233,.25)}
+.wa-icon.blue{background:rgba(30,58,95,.07);transition:all .2s}
+.wa:hover .wa-icon.blue{background:rgba(30,58,95,.13);box-shadow:0 0 12px rgba(30,58,95,.15)}
+.wa-icon.teal{background:rgba(14,165,233,.07);transition:all .2s}
+.wa:hover .wa-icon.teal{background:rgba(14,165,233,.15);box-shadow:0 0 10px rgba(14,165,233,.2)}
+.wa-icon.gray{background:rgba(12,22,40,.05);transition:all .2s}
+.wa:hover .wa-icon.gray{background:rgba(12,22,40,.1)}
 .wa-icon.blue{background:rgba(30,58,95,.07)}
 .wa-icon.teal{background:rgba(14,165,233,.07)}
 .wa-icon.gray{background:rgba(12,22,40,.05)}
@@ -132,7 +148,8 @@ nav{position:fixed;top:36px;left:0;right:0;z-index:300;height:60px;
 .wtab{flex:1;padding:12px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;color:var(--mist);border:none;background:none;font-family:var(--font);border-bottom:2px solid transparent;transition:all .2s;margin-bottom:-1px}
 .wtab.active{color:var(--sky);border-bottom-color:var(--sky);background:white}
 .w-pane{display:none;padding:20px 24px}
-.w-pane.active{display:block}
+.w-pane.active{display:block;animation:paneIn .3s ease}
+@keyframes paneIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 /* Send form */
 .sf-lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--mist);font-family:var(--font-mono);margin-bottom:5px;display:block}
 .sf-input{width:100%;padding:10px 12px;border:1px solid var(--border2);border-radius:8px;font-size:13px;font-family:var(--font-mono);color:var(--ink);background:var(--fog);outline:none;transition:border-color .2s}
@@ -379,10 +396,379 @@ footer::before{content:'';position:absolute;inset:0;background:repeating-linear-
   .footer-top{grid-template-columns:1fr}
   .footer-inner{padding:36px 20px}
 }
+
+/* ══════════════════════════════════════
+   HOMEPAGE ANIMATIONS
+══════════════════════════════════════ */
+
+/* Floating orbs background */
+.hero-orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;isolation:isolate}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(70px);animation:orbFloat 8s ease-in-out infinite}
+.hero-orb-1{width:400px;height:400px;background:radial-gradient(circle,rgba(14,165,233,.13),transparent 70%);top:-100px;left:-80px;animation-duration:9s}
+.hero-orb-2{width:300px;height:300px;background:radial-gradient(circle,rgba(56,189,248,.1),transparent 70%);bottom:-60px;right:10%;animation-duration:11s;animation-delay:-3s}
+.hero-orb-3{width:200px;height:200px;background:radial-gradient(circle,rgba(125,211,252,.08),transparent 70%);top:40%;left:30%;animation-duration:7s;animation-delay:-5s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-15px) scale(1.05)}66%{transform:translate(-10px,20px) scale(.97)}}
+
+/* Animated grid lines behind hero-left */
+.hero-grid{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.03;isolation:isolate}
+.hero-grid svg{width:100%;height:100%}
+
+/* Hero content slides in */
+.hero-left>*:not(.hero-orbs):not(.hero-grid):not(.hero-particle){position:relative;z-index:2}
+.hero-badge{animation:heroFadeUp .65s .05s both}
+.hero-h1{animation:heroFadeUp .7s .12s both}
+.hero-p{animation:heroFadeUp .7s .22s both}
+.hero-cta-row{animation:heroFadeUp .7s .34s both}
+.hero-arc-info{animation:heroFadeUp .7s .46s both}
+@keyframes slideUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes heroFadeUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}to{opacity:1;transform:translateY(0)}}
+
+/* Glowing CTA button pulse */
+.btn-sky{position:relative;overflow:hidden}
+.btn-sky::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);opacity:0;transition:opacity .3s}
+.btn-sky:hover::after{opacity:1}
+@keyframes btnGlow{0%,100%{box-shadow:0 4px 16px rgba(14,165,233,.3)}50%{box-shadow:0 4px 28px rgba(14,165,233,.55)}}
+.btn-sky{animation:btnGlow 3s ease-in-out infinite}
+
+/* Stat counter pulse */
+.hai-val{animation:countUp .8s .5s ease both}
+@keyframes countUp{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+
+/* ── WALLET PANEL ANIMATIONS ── */
+
+/* Orb rings already spin — add glow */
+.orb-center{box-shadow:0 0 20px rgba(14,165,233,.4);animation:orbGlow 3s ease-in-out infinite}
+@keyframes orbGlow{0%,100%{box-shadow:0 0 20px rgba(14,165,233,.3)}50%{box-shadow:0 0 40px rgba(14,165,233,.6),0 0 60px rgba(56,189,248,.3)}}
+
+/* Balance number count-up effect */
+.wbl-usdc{animation:balanceReveal .6s ease both}
+@keyframes balanceReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Quick action buttons stagger in */
+.w-actions .wa{opacity:0;animation:waIn .4s ease forwards}
+.w-actions .wa:nth-child(1){animation-delay:.1s}
+.w-actions .wa:nth-child(2){animation-delay:.18s}
+.w-actions .wa:nth-child(3){animation-delay:.26s}
+.w-actions .wa:nth-child(4){animation-delay:.34s}
+@keyframes waIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* Send form field focus animation */
+.sf-input{transition:border-color .25s,box-shadow .25s,transform .15s}
+.sf-input:focus{transform:scale(1.005)}
+
+/* Send button shimmer */
+.btn-snd{position:relative;overflow:hidden}
+.btn-snd::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:shimmer 2.5s ease-in-out infinite}
+@keyframes shimmer{0%{left:-100%}60%,100%{left:150%}}
+
+/* TX status slide in */
+.tx-msg{transition:all .3s ease}
+.tx-msg.info,.tx-msg.success,.tx-msg.error{animation:msgIn .35s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Gas box slide down */
+.gas-box{animation:gasReveal .3s ease both}
+@keyframes gasReveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+/* TX history rows animate in */
+.tx-row{animation:txRowIn .4s ease both}
+@keyframes txRowIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+
+/* Wallet connected state reveal */
+.conn-state{animation:connReveal .5s ease both}
+@keyframes connReveal{from{opacity:0}to{opacity:1}}
+
+/* Balance badge pulse */
+.wbl-badge{animation:badgePulse 4s ease-in-out infinite}
+@keyframes badgePulse{0%,100%{opacity:.8}50%{opacity:1;box-shadow:0 0 8px rgba(14,165,233,.3)}}
+
+/* Network dot enhanced pulse */
+.w-net-dot,.arc-dot,.net-dot{animation:netPulse 2s ease-in-out infinite}
+@keyframes netPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(14,165,233,.4)}50%{opacity:.8;box-shadow:0 0 0 4px rgba(14,165,233,.1)}}
+
+/* Floating animated particles on hero */
+.hero-particle{position:absolute;pointer-events:none;border-radius:50%;z-index:1;animation:particleDrift linear infinite}
+@keyframes particleDrift{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.6}90%{opacity:.2}100%{transform:translateY(-120px) translateX(var(--drift,20px));opacity:0}}
+
+/* Arc network tag animated border */
+.nav-arc-badge.show{animation:badgeIn .4s ease,borderGlow 3s 1s ease-in-out infinite}
+@keyframes badgeIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes borderGlow{0%,100%{border-color:rgba(14,165,233,.2)}50%{border-color:rgba(14,165,233,.5)}}
+
+/* Faucet links hover lift */
+.fc-link{transition:transform .2s,border-color .2s,color .2s,box-shadow .2s}
+.fc-link:hover{box-shadow:0 4px 16px rgba(14,165,233,.15)}
+
+/* Wc-state orb entrance */
+.wc-state{animation:wcIn .6s ease both}
+@keyframes wcIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* Tab active slide indicator */
+.wtab{position:relative;overflow:hidden}
+.wtab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--sky);animation:tabSlide .25s ease}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0deg)}100%{opacity:0;transform:translateY(120px) rotate(360deg)}}
+@keyframes dot1{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+@keyframes tabSlide{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* Ticker enhanced glow */
+.ticker-item .tk-val{text-shadow:0 0 8px rgba(56,189,248,.4)}
+
+/* Scrolling number animation for balance */
+@keyframes flipIn{0%{transform:rotateX(-90deg);opacity:0}100%{transform:rotateX(0);opacity:1}}
+.balance-updated{animation:flipIn .4s ease}
+
+
+/* ════════════════════════════════
+   PROFESSIONAL TEXT ANIMATIONS
+════════════════════════════════ */
+
+/* Gradient animated headline */
+.hero-h1 em {
+  background: linear-gradient(135deg, var(--sky) 0%, var(--sky2) 40%, #ffffff 60%, var(--sky3) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShine 4s linear infinite;
+}
+@keyframes textShine {
+  0% { background-position: 0% center }
+  100% { background-position: 200% center }
+}
+
+/* Cursor blink on badge text */
+.hero-badge::after {
+  content: '|';
+  margin-left: 3px;
+  animation: cursorBlink 1.2s step-end infinite;
+  color: var(--sky);
+  font-weight: 300;
+}
+@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Animated underline on nav links hover */
+.nav-links a::after {
+  content: '';
+  display: block;
+  height: 1.5px;
+  background: var(--sky);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+  margin-top: 2px;
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* Arc stats animated entrance */
+.hai-val {
+  animation: statReveal .6s cubic-bezier(.34,1.56,.64,1) both;
+}
+.hai-item:nth-child(1) .hai-val { animation-delay: .55s }
+.hai-item:nth-child(2) .hai-val { animation-delay: .65s }
+.hai-item:nth-child(3) .hai-val { animation-delay: .75s }
+.hai-item:nth-child(4) .hai-val { animation-delay: .85s }
+@keyframes statReveal {
+  0% { opacity:0; transform: scale(.6) translateY(8px) }
+  100% { opacity:1; transform: scale(1) translateY(0) }
+}
+
+/* Glassy hero-left panel */
+.hero-left {
+  background: linear-gradient(160deg, rgba(255,255,255,.98) 0%, rgba(240,249,255,.95) 100%);
+}
+
+/* Hero paragraph word reveal feel */
+.hero-p {
+  position: relative;
+}
+
+/* Animated border on hero stats */
+.hero-arc-info {
+  position: relative;
+}
+.hero-arc-info::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 1.5px;
+  background: linear-gradient(90deg, var(--sky), var(--sky3), transparent);
+  animation: borderGrow .8s .6s ease forwards;
+}
+@keyframes borderGrow { to { width: 100% } }
+
+/* Animated dot on badge */
+.hero-badge-dot {
+  animation: dotPulse 2s ease-in-out infinite !important;
+}
+@keyframes dotPulse {
+  0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14,165,233,.5) }
+  50% { transform: scale(1.3); box-shadow: 0 0 0 5px rgba(14,165,233,.0) }
+}
+
+/* Wallet connect state: animated background gradient */
+.wc-state {
+  background: linear-gradient(180deg,
+    rgba(255,255,255,1) 0%,
+    rgba(224,242,254,.6) 50%,
+    rgba(255,255,255,1) 100%);
+  background-size: 100% 200%;
+  animation: gradShift 6s ease-in-out infinite;
+}
+@keyframes gradShift {
+  0%,100% { background-position: 50% 0% }
+  50% { background-position: 50% 100% }
+}
+
+/* Typewriter style for wallet note */
+.wc-note {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typeIn 1.5s .8s steps(40) forwards;
+  font-family: var(--font-mono) !important;
+}
+@keyframes typeIn { to { width: 100% } }
+
+/* Animated send button text */
+.btn-snd:not(:disabled) {
+  letter-spacing: .6px;
+  transition: letter-spacing .2s, background .2s, transform .2s, box-shadow .2s;
+}
+.btn-snd:not(:disabled):hover {
+  letter-spacing: 1.2px;
+}
+
+/* Input field animated label */
+.sf-lbl {
+  transition: color .2s;
+}
+.sf-row:focus-within .sf-lbl {
+  color: var(--sky);
+}
+
+/* Hero grid subtle animation */
+.hero-grid {
+  animation: gridFade 6s ease-in-out infinite alternate;
+}
+@keyframes gridFade {
+  0% { opacity: .02 }
+  100% { opacity: .05 }
+}
+
+/* Canvas fade in */
+#arcCanvas {
+  animation: canvasFadeIn 1.5s ease both;
+}
+@keyframes canvasFadeIn {
+  from { opacity: 0 }
+  to { opacity: .25 }
+}
+
+/* Wallet connected topbar animated label */
+.w-net {
+  animation: netIn .5s ease both;
+}
+@keyframes netIn {
+  from { opacity:0; transform: translateX(-10px) }
+  to { opacity:1; transform: translateX(0) }
+}
+
+/* Balance area text reveal */
+.wbl-label {
+  animation: labelIn .4s .1s ease both;
+}
+@keyframes labelIn {
+  from { opacity:0; letter-spacing: .5em }
+  to { opacity:1; letter-spacing: 1.2px }
+}
+
+/* Quick action button ripple on click */
+.wa {
+  position: relative;
+  overflow: hidden;
+}
+.wa::after {
+  content: '';
+  position: absolute;
+  inset: 50%;
+  background: rgba(14,165,233,.15);
+  border-radius: 50%;
+  transition: inset .4s ease, opacity .4s ease;
+  opacity: 0;
+}
+.wa:active::after {
+  inset: -20%;
+  opacity: 1;
+}
+
+/* Gas box animated border */
+.gas-box {
+  border-left: 2px solid var(--sky);
+  position: relative;
+  overflow: hidden;
+}
+.gas-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to bottom, var(--sky2), var(--sky3));
+  animation: gasLine .4s ease forwards;
+}
+@keyframes gasLine { to { height: 100% } }
+
+/* Success TX row flash */
+.tx-row:first-child {
+  animation: rowFlash .6s ease;
+}
+@keyframes rowFlash {
+  0% { background: rgba(14,165,233,.12) }
+  100% { background: transparent }
+}
+
+/* Faucet link animated arrow */
+.fc-link::after {
+  content: ' →';
+  opacity: 0;
+  transition: opacity .2s, transform .2s;
+  display: inline-block;
+}
+.fc-link:hover::after {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* Ticker items glow on hover */
+.ticker-item:hover .tk-val {
+  text-shadow: 0 0 12px rgba(56,189,248,.7);
+}
+
+/* Page-level entrance animation */
+.page.active {
+  animation: pageIn .4s ease both;
+}
+@keyframes pageIn {
+  from { opacity:0 }
+  to { opacity:1 }
+}
+
 </style>
 </head>
 <body>
 <!-- TICKER -->
+<!-- FILE:// DETECTION BANNER -->
+<div id="fileBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#1e3a5f;color:white;padding:14px 20px;text-align:center;font-family:monospace;font-size:13px;z-index:9999;border-bottom:2px solid #0ea5e9">
+  <strong style="color:#38bdf8">⚠️ MetaMask requires HTTP — you are on file://</strong>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  Run: <code style="background:rgba(255,255,255,.15);padding:2px 8px;border-radius:4px">python3 -m http.server 8080</code>
+  &nbsp; then open &nbsp;
+  <a href="http://localhost:8080/aura-wallet.html" style="color:#7dd3fc;font-weight:bold">http://localhost:8080/aura-wallet.html</a>
+  &nbsp;&nbsp;
+  <button onclick="document.getElementById('fileBanner').style.display='none'" style="background:rgba(255,255,255,.15);border:none;color:white;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:12px;margin-left:8px">✕</button>
+</div>
+
 <div class="ticker-wrap">
   <div class="ticker-track" id="tickerTrack">
     <span class="ticker-item"><span class="tk-dot"></span>Arc Testnet<span class="tk-val">LIVE</span></span><span class="ticker-sep">·</span>
@@ -433,8 +819,24 @@ footer::before{content:'';position:absolute;inset:0;background:repeating-linear-
 <div id="page-home" class="page active">
   <div class="hero">
     <div class="hero-left">
+      <!-- Animated background -->
+      <div class="hero-orbs">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+      </div>
+      <!-- Subtle grid -->
+      <div class="hero-grid">
+        <svg viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice">
+          <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#0ea5e9" stroke-width="1"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#grid)"/>
+        </svg>
+      </div>
       <div class="hero-badge"><span class="hero-badge-dot"></span>Arc One · Arc Testnet</div>
-      <h1 class="hero-h1">The wallet <em>built for Arc.</em></h1>
+      <h1 class="hero-h1">
+          <span style="display:block;overflow:hidden"><span style="display:block;animation:heroFadeUp .6s .1s both">The wallet</span></span>
+          <span style="display:block;overflow:hidden"><em style="display:block;animation:heroFadeUp .6s .25s both">built for Arc.</em></span>
+        </h1>
       <p class="hero-p">Arc One is your gateway to Arc Network — Circle's stablecoin-native L1. USDC-gassed. Sub-second finality. AI-powered.</p>
       <div class="hero-cta-row">
         <button class="btn-sky" onclick="openConnect()">Connect Wallet</button>
@@ -447,8 +849,10 @@ footer::before{content:'';position:absolute;inset:0;background:repeating-linear-
         <div class="hai-item"><div class="hai-val">$0</div><div class="hai-lbl">Our Fees</div></div>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="wallet-panel">
+    <div class="hero-right" style="position:relative;overflow:hidden">
+      <!-- Animated arc network nodes background -->
+      <canvas id="arcCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.25"></canvas>
+      <div class="wallet-panel" style="position:relative;z-index:1">
         <div id="wcState" class="wc-state">
           <div class="wallet-orb">
             <div class="orb-ring"></div><div class="orb-ring"></div><div class="orb-ring"></div>
@@ -458,6 +862,12 @@ footer::before{content:'';position:absolute;inset:0;background:repeating-linear-
           <p class="wc-sub">Link MetaMask to Arc One. Send USDC on Arc Network. Sub-second finality.</p>
           <button class="btn-connect-main" onclick="openConnect()">Connect with MetaMask</button>
           <div class="wc-note">// arc one · arc network · chain 5042002</div>
+          <div id="httpHint" style="display:none;margin-top:16px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:14px 16px;text-align:left;max-width:280px">
+            <div style="font-size:11px;font-weight:700;color:#0369a1;margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase">Serve over HTTP first</div>
+            <div style="font-size:11px;font-family:monospace;background:#e0f2fe;padding:5px 8px;border-radius:5px;margin-bottom:6px;color:#0c4a6e">python3 -m http.server 8080</div>
+            <div style="font-size:11px;font-family:monospace;background:#e0f2fe;padding:5px 8px;border-radius:5px;color:#0c4a6e">npx serve .</div>
+            <div style="font-size:11px;color:#0369a1;margin-top:8px">Then open <strong>http://localhost:8080</strong></div>
+          </div>
         </div>
         <div id="connState" class="conn-state">
           <div class="w-topbar">
@@ -757,7 +1167,7 @@ footer::before{content:'';position:absolute;inset:0;background:repeating-linear-
           </div>
           <div class="faq-item">
             <div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">What are Arc Testnet's network settings?</span><div class="faq-chev">▾</div></div>
-            <div class="faq-a">Add Arc Testnet to MetaMask manually:<ul><li><strong>Network Name:</strong> Arc Testnet</li><li><strong>RPC URL:</strong> <code>https://rpc.testnet.arc.network</code></li><li><strong>Chain ID:</strong> <code>5042002</code></li><li><strong>Currency Symbol:</strong> <code>USDC</code></li><li><strong>Block Explorer:</strong> <code>https://testnet.arcscan.app</code></li></ul>Arc One adds this automatically when you connect — no manual setup needed.</div>
+            <div class="faq-a">Add Arc Testnet to MetaMask manually:<ul><li><strong>Network Name:</strong> Arc Testnet</li><li><strong>RPC URL:</strong> <code>https://rpc.testnet.arc.network</code></li><li><strong>Chain ID:</strong> <code>5042002</code> (hex: <code>0x4cef52</code>)</li><li><strong>Currency Symbol:</strong> <code>USDC</code></li><li><strong>Block Explorer:</strong> <code>https://testnet.arcscan.app</code></li></ul>Arc One adds this automatically when you connect — no manual setup needed.</div>
           </div>
           <div class="faq-item">
             <div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">Why does Arc use USDC as gas instead of ETH?</span><div class="faq-chev">▾</div></div>
@@ -869,7 +1279,7 @@ footer::before{content:'';position:absolute;inset:0;background:repeating-linear-
           </div>
           <div class="faq-item">
             <div class="faq-q" onclick="tFaq(this)"><span class="faq-q-txt">Arc Testnet not appearing in MetaMask</span><div class="faq-chev">▾</div></div>
-            <div class="faq-a">Arc One adds Arc Testnet to MetaMask automatically on first connect. If it fails, add manually: <strong>Network Name:</strong> Arc Testnet, <strong>RPC:</strong> <code>https://rpc.testnet.arc.network</code>, <strong>Chain ID:</strong> <code>5042002</code>, <strong>Symbol:</strong> <code>USDC</code>, <strong>Explorer:</strong> <code>https://testnet.arcscan.app</code></div>
+            <div class="faq-a">Arc One adds Arc Testnet to MetaMask automatically on first connect. If it fails, add manually: <strong>Network Name:</strong> Arc Testnet, <strong>RPC:</strong> <code>https://rpc.testnet.arc.network</code>, <strong>Chain ID:</strong> <code>5042002</code> (hex: <code>0x4cef52</code>), <strong>Symbol:</strong> <code>USDC</code>, <strong>Explorer:</strong> <code>https://testnet.arcscan.app</code></div>
           </div>
         </div>
 
@@ -978,7 +1388,7 @@ footer::before{content:'';position:absolute;inset:0;background:repeating-linear-
 <script>
 // ══ STATE ══
 let walletAddr=null,ethProv=null,sgn=null;
-const ARC_CHAIN_ID='0x4CE172'; // 5042002 in hex
+const ARC_CHAIN_ID='0x4cef52'; // 5042002 in hex
 const ARC_RPC='https://rpc.testnet.arc.network';
 const ARC_EXPLORER='https://testnet.arcscan.app';
 const txLog=[];
@@ -1023,43 +1433,91 @@ function waitEth(ms=4000){
 }
 
 async function doConnect(){
+  if(window.location.protocol==='file:'){
+    showWS('🚫',
+      '<strong style="font-size:15px">You are on file://</strong><br><br>'+
+      'MetaMask cannot inject into local files.<br>Serve over HTTP first.<br><br>'+
+      '<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:12px;margin:10px 0;text-align:left">'+
+      '<div style="margin-bottom:6px;font-weight:700;color:#0369a1">Quick fix:</div>'+
+      '<div style="margin-bottom:6px">1️⃣ <code style="background:#e0f2fe;padding:2px 6px;border-radius:4px">python3 -m http.server 8080</code></div>'+
+      '<div>2️⃣ <code style="background:#e0f2fe;padding:2px 6px;border-radius:4px">npx serve .</code></div>'+
+      '<div style="font-size:11px;color:#0369a1;margin-top:8px">Then open http://localhost:8080/aura-wallet.html</div>'+
+      '</div>'+
+      '<a href="https://metamask.io/download/" target="_blank" style="color:var(--sky);font-size:12px">Install MetaMask ↗</a>'
+    );
+    return;
+  }
   showWS('🔍','Detecting wallet…');
-  const eth=await waitEth();
+  const eth = await waitEth();
   if(!eth){
     showWS('❌',
-      '<strong>No wallet detected.</strong><br><br>'+
-      'MetaMask cannot inject into <code>file://</code> URLs.<br><br>'+
-      '<strong>Fix — serve over HTTP:</strong><br>'+
-      '<code>npx serve .</code> → <code>http://localhost:3000</code><br>'+
-      'or <code>python3 -m http.server 8080</code><br><br>'+
+      '<strong>MetaMask not detected.</strong><br><br>'+
+      '• Unlock MetaMask (click the fox icon)<br>'+
+      '• Refresh this page<br>'+
+      '• Make sure you are on <code>http://localhost</code><br><br>'+
       '<a href="https://metamask.io/download/" target="_blank" style="color:var(--sky)">Install MetaMask ↗</a>'
     );
     return;
   }
   showWS('⏳','Approve the connection in MetaMask…');
   try{
-    const accounts=await eth.request({method:'eth_requestAccounts'});
-    if(!accounts?.length){showWS('❌','No accounts found. Unlock MetaMask first.');return;}
-    showWS('🔄','Switching to Arc Testnet…');
+    const accounts = await eth.request({method:'eth_requestAccounts'});
+    if(!accounts?.length){
+      showWS('❌','No accounts found. Unlock MetaMask and try again.');
+      return;
+    }
+    showWS('🔄','Adding / switching to Arc Testnet…');
+
+    // Always try to add the chain first — this is safer than just switching
+    // because switch fails with -32603 if chain params differ from stored ones
     try{
-      const cid=await eth.request({method:'eth_chainId'});
-      if(cid!==ARC_CHAIN_ID){
-        await eth.request({method:'wallet_switchEthereumChain',params:[{chainId:ARC_CHAIN_ID}]});
-      }
-    }catch(se){
-      if(se.code===4902){
-        await eth.request({method:'wallet_addEthereumChain',params:[{
-          chainId:ARC_CHAIN_ID,
+      await eth.request({
+        method:'wallet_addEthereumChain',
+        params:[{
+          chainId:'0x4cef52',
           chainName:'Arc Testnet',
           nativeCurrency:{name:'USD Coin',symbol:'USDC',decimals:18},
-          rpcUrls:[ARC_RPC,'https://arc-testnet.drpc.org'],
-          blockExplorerUrls:[ARC_EXPLORER]
-        }]});
-      } else if(se.code!==4001) throw se;
+          rpcUrls:['https://rpc.testnet.arc.network'],
+          blockExplorerUrls:['https://testnet.arcscan.app']
+        }]
+      });
+    }catch(addErr){
+      // Code 4001 = user rejected, anything else we just try to switch anyway
+      if(addErr.code===4001){
+        showWS('❌','Network addition rejected. Please approve in MetaMask.');
+        return;
+      }
+      // -32602 or other = chain already exists, try switch instead
+      try{
+        await eth.request({
+          method:'wallet_switchEthereumChain',
+          params:[{chainId:'0x4cef52'}]
+        });
+      }catch(switchErr){
+        if(switchErr.code===4001){
+          showWS('❌','Network switch rejected. Please approve in MetaMask.');
+          return;
+        }
+        // Ignore other switch errors — chain may already be active
+        console.warn('Switch warning:', switchErr.message);
+      }
     }
-    ethProv=new ethers.providers.Web3Provider(eth,'any');
-    sgn=ethProv.getSigner();
-    walletAddr=accounts[0];
+
+    // Verify we are on the right chain
+    const currentChain = await eth.request({method:'eth_chainId'});
+    if(currentChain.toLowerCase() !== '0x4cef52'){
+      showWS('⚠️',
+        'Chain switch failed. Please switch to Arc Testnet manually in MetaMask.<br><br>'+
+        '<strong>Chain ID:</strong> <code>5042002</code> (hex: <code>0x4cef52</code>)<br>'+
+        '<strong>RPC:</strong> <code>https://rpc.testnet.arc.network</code>'
+      );
+      return;
+    }
+
+    ethProv = new ethers.providers.Web3Provider(eth,'any');
+    sgn = ethProv.getSigner();
+    walletAddr = accounts[0];
+
     if(!window._aEvt){
       window._aEvt=true;
       eth.on('accountsChanged',a=>a.length?reconnect(a[0],eth):onDisc());
@@ -1067,15 +1525,25 @@ async function doConnect(){
     }
     await onConn();
   }catch(e){
-    console.error(e);
-    if(e.code===4001||e.code==='ACTION_REJECTED')
-      showWS('❌','Rejected. Click a wallet option again and approve in MetaMask.');
-    else if(e.code===-32002)
+    console.error('Connect error:',e);
+    if(e.code===4001||e.code==='ACTION_REJECTED'){
+      showWS('❌','Connection rejected. Click a wallet option and approve in MetaMask.');
+    }else if(e.code===-32002){
       showWS('⏳','MetaMask has a pending request — <strong>open MetaMask</strong> and accept it.');
-    else
+    }else if(e.code===-32603){
+      showWS('❌',
+        'Chain ID error. Try adding Arc Testnet manually in MetaMask:<br><br>'+
+        '<strong>Chain ID:</strong> <code>5042002</code> (hex: <code>0x4cef52</code>) (hex: <code>0x4cef52</code>)<br>'+
+        '<strong>RPC:</strong> <code>https://rpc.testnet.arc.network</code><br>'+
+        '<strong>Symbol:</strong> <code>USDC</code><br>'+
+        '<strong>Explorer:</strong> <code>testnet.arcscan.app</code>'
+      );
+    }else{
       showWS('❌','Error '+(e.code||'')+': '+e.message+'<br><small>Try refreshing the page.</small>');
+    }
   }
 }
+
 
 async function reconnect(addr,eth){
   walletAddr=addr;
@@ -1113,7 +1581,7 @@ async function refreshBal(){
   try{
     const bal=await ethProv.getBalance(walletAddr);
     const val=parseFloat(ethers.utils.formatEther(bal)).toFixed(5);
-    document.getElementById('wBal').textContent=val;
+    setBalWithAnim(val);
     document.getElementById('wUsd').textContent='Arc Testnet USDC · Chain 5042002';
   }catch{
     document.getElementById('wBal').textContent='Error';
@@ -1159,6 +1627,22 @@ async function estimateGas(){
   }
 }
 
+
+function spawnConfetti(){
+  const colors=['#0ea5e9','#38bdf8','#7dd3fc','#ffffff','#bae6fd'];
+  for(let i=0;i<28;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');
+      const size=Math.random()*6+3;
+      el.style.cssText=`position:fixed;top:50%;left:${30+Math.random()*40}%;width:${size}px;height:${size}px;`+
+        `background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?'50%':'2px'};`+
+        `z-index:9999;pointer-events:none;animation:confettiFall ${Math.random()*.8+.8}s ease forwards`;
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(),1600);
+    },i*35);
+  }
+}
+
 async function doSend(){
   const to=document.getElementById('toAddr').value.trim();
   const amt=document.getElementById('sendAmt').value.trim();
@@ -1166,8 +1650,14 @@ async function doSend(){
   if(!amt||parseFloat(amt)<=0){setTxMsg('error','Please enter a valid amount greater than 0.');return;}
   if(!/^0x[0-9a-fA-F]{40}$/.test(to)){setTxMsg('error','Invalid Ethereum address. Must start with 0x + 40 hex characters.');return;}
   const btn=document.getElementById('sendBtn');
-  btn.disabled=true;btn.textContent='Sending…';
-  setTxMsg('info','⏳ Confirm in MetaMask…');
+  btn.disabled=true;
+  btn.innerHTML='<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border:2px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block"></span>Sending…</span>';
+  setTxMsg('info','<span style="display:inline-flex;align-items:center;gap:5px">'+
+    '<span style="display:inline-flex;gap:3px">'+
+    '<span style="width:5px;height:5px;background:var(--sky);border-radius:50%;animation:dot1 1.4s ease-in-out infinite"></span>'+
+    '<span style="width:5px;height:5px;background:var(--sky);border-radius:50%;animation:dot1 1.4s .2s ease-in-out infinite"></span>'+
+    '<span style="width:5px;height:5px;background:var(--sky);border-radius:50%;animation:dot1 1.4s .4s ease-in-out infinite"></span>'+
+    '</span> Confirm in MetaMask…</span>');
   try{
     const tx=await sgn.sendTransaction({to,value:ethers.utils.parseEther(amt)});
     setTxMsg('info',
@@ -1175,6 +1665,7 @@ async function doSend(){
       '<a href="'+ARC_EXPLORER+'/tx/'+tx.hash+'" target="_blank">View on ArcScan ↗</a>'
     );
     const receipt=await tx.wait(1);
+    spawnConfetti();
     setTxMsg('success',
       '✅ Confirmed in block #'+receipt.blockNumber+'<br>'+
       '<a href="'+ARC_EXPLORER+'/tx/'+tx.hash+'" target="_blank">View on ArcScan ↗</a>'
@@ -1191,7 +1682,7 @@ async function doSend(){
     else
       setTxMsg('error','Failed: '+(e.shortMessage||e.reason||e.message));
   }
-  btn.disabled=false;btn.textContent='Send →';
+  btn.disabled=false;btn.innerHTML='Send →';
 }
 
 function updateHistory(){
@@ -1239,11 +1730,141 @@ function scrollFaq(id,el){
   if(el)el.classList.add('active');
 }
 
+// ══ FILE:// DETECTION ══
+if(window.location.protocol==='file:'){
+  const hint=document.getElementById('httpHint');
+  if(hint)hint.style.display='block';
+  document.getElementById('fileBanner').style.display='block';
+  // Push pages down to account for banner
+  document.querySelectorAll('nav').forEach(n=>n.style.top='80px');
+  document.querySelectorAll('.page').forEach(p=>p.style.paddingTop='144px');
+  document.querySelector('.ticker-wrap').style.top='40px';
+}
+
+// ══ ARC NETWORK CANVAS ══
+(function initArcCanvas(){
+  const canvas = document.getElementById('arcCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes=[], animId;
+
+  function resize(){
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = canvas.width = rect.width || 460;
+    H = canvas.height = rect.height || 700;
+    buildNodes();
+  }
+
+  function buildNodes(){
+    nodes = [];
+    const count = Math.floor((W * H) / 14000);
+    for(let i=0;i<count;i++){
+      nodes.push({
+        x: Math.random()*W, y: Math.random()*H,
+        vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
+        r: Math.random()*2+1.5,
+        pulse: Math.random()*Math.PI*2
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const t = Date.now()/1000;
+
+    // Draw connections
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<120){
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle=`rgba(14,165,233,${(1-dist/120)*.35})`;
+          ctx.lineWidth=.7;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw nodes
+    nodes.forEach(n=>{
+      const glow = (Math.sin(t*1.5+n.pulse)+1)/2;
+      // Outer glow ring
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r+2+glow*2, 0, Math.PI*2);
+      ctx.fillStyle=`rgba(14,165,233,${glow*.12})`;
+      ctx.fill();
+      // Core dot
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      ctx.fillStyle=`rgba(${glow>.5?'56,189,248':'125,211,252'},${.5+glow*.4})`;
+      ctx.fill();
+      // Move
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W) n.vx*=-1;
+      if(n.y<0||n.y>H) n.vy*=-1;
+    });
+
+    // Animated sweep arc
+    ctx.beginPath();
+    ctx.arc(W*.5, H*.45, Math.min(W,H)*.28, t*.4, t*.4+Math.PI*.4);
+    ctx.strokeStyle='rgba(14,165,233,.08)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+
+    animId = requestAnimationFrame(draw);
+  }
+
+  resize();
+  draw();
+  window.addEventListener('resize', ()=>{cancelAnimationFrame(animId);resize();draw();});
+})();
+
 // ══ NAV SCROLL SHADOW ══
 window.addEventListener('scroll',()=>{
   document.getElementById('mainNav').style.boxShadow=
     window.scrollY>8?'0 1px 20px rgba(14,165,233,.1)':'none';
 },{passive:true});
+
+// ══ HERO PARTICLES ══
+(function spawnHeroParticles(){
+  const hero = document.querySelector('.hero-left');
+  if(!hero) return;
+  function spawn(){
+    const p = document.createElement('div');
+    p.className = 'hero-particle';
+    const size = Math.random() * 4 + 2;
+    const drift = (Math.random() - 0.5) * 80;
+    const delay = Math.random() * 3;
+    const dur = Math.random() * 6 + 8;
+    const isWhite = Math.random() > 0.4;
+    p.style.cssText = [
+      `width:${size}px`, `height:${size}px`,
+      `left:${Math.random() * 100}%`,
+      `bottom:${Math.random() * 40}%`,
+      `background:${isWhite ? 'rgba(255,255,255,.5)' : 'rgba(14,165,233,.55)'}`,
+      `--drift:${drift}px`,
+      `animation-delay:${delay}s`,
+      `animation-duration:${dur}s`
+    ].join(';');
+    hero.appendChild(p);
+    setTimeout(() => p.remove(), (dur + delay) * 1000);
+  }
+  setInterval(spawn, 600);
+  for(let i=0;i<8;i++) setTimeout(spawn, i * 200);
+})();
+
+// ══ BALANCE FLIP ANIMATION ══
+function setBalWithAnim(val){
+  const el = document.getElementById('wBal');
+  if(!el) return;
+  el.classList.remove('balance-updated');
+  void el.offsetWidth;
+  el.textContent = val;
+  el.classList.add('balance-updated');
+}
 
 // ══ PARTICLES ══
 function spawnSpark(){
